@@ -13,25 +13,25 @@ python --version
 python3 --version
 ```
 
-We also highly recommend setting up a virtual environment. The virtual environment lets you install packages that are only used for your assignments and do not impact the rest of the system. We recommend `venv` as it is lightweight and easy to use (<a href="https://docs.python.org/3/tutorial/venv.html">Tutorial</a>). `uv` is also a good option as it is possible to select a specific python version for your virtual enviroment.
+We also highly recommend setting up a virtual environment. The virtual environment lets you install packages that are only used for your assignments and do not impact the rest of the system. We recommend `uv` as it is lightweight and easy to use (<a href="https://docs.astral.sh/uv/getting-started">Tutorial</a>) and it makes it possible to select a specific python version for your environment.
 
 Run the following command:
 
 ```bash
-python -m venv venv
-source venv/bin/activate
+uv venv --python=3.12
+source .venv/bin/activate
 ```
 
 Then clone the starter codes from the git repo and install packages.
 
 ```bash
 git clone https://github.com/llmsystem/llmsys_hw2.git
-cd llmsys_f25_hw2
+cd llmsys_hw2
 # If you are using PSC, 
 # please load the CUDA module before installing packages:
 # module load cuda/12.6.0
-python -m pip install -r requirements.txt
-python -m pip install -Ue .
+uv pip install -r requirements.txt
+uv pip install -Ue .
 ```
 
 Make sure that everything is installed by running the following command:
