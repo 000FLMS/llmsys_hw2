@@ -18,8 +18,16 @@ We also highly recommend setting up a virtual environment. The virtual environme
 Run the following command:
 
 ```bash
+# uv guideline
 uv venv --python=3.12
 source .venv/bin/activate
+
+# If you use conda, 
+# please load conda module before creating a new env
+# module load anaconda3/2024.10-1
+# replace <env_name> with the name of your env
+conda create -n <env_name> python=3.12
+conda activate <env_name>
 ```
 
 Then clone the starter codes from the git repo and install packages.
@@ -29,9 +37,15 @@ git clone https://github.com/llmsystem/llmsys_hw2.git
 cd llmsys_hw2
 # If you are using PSC, 
 # please load the CUDA module before installing packages:
-# module load cuda/12.6.0
+# module load cuda/12.4.0
+
+# uv guideline
 uv pip install -r requirements.txt
 uv pip install -Ue .
+
+# conda guideline
+pip install -r requirements.txt
+pip install -Ue .
 ```
 
 Make sure that everything is installed by running the following command:
@@ -81,6 +95,11 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
 
 Implement the backpropagation on the computation graph in order to compute derivatives for the leave nodes.
 
+**Hints**:
+- Traverse nodes in topological order.
+- If the node is a leaf, the derivative should be accumulated.
+- Otherwise, the derivative should be propagated via chain rule.
+
 ```python
 def backpropagate(variable: Variable, deriv: Any) -> None:
     """
@@ -106,6 +125,10 @@ In this section, you will implement the neural network architecture. Complete th
 
 Implement the linear layer with 2D matrix as weights and 1D vector as bias. You need to implement both the initialization function and the forward function for the Linear class. Read the comments carefully before coding.
 
+**HINTS**: 
+- Make sure to use the `RParam` function.
+- You can use the `view` function of `minitorch.tensor` for reshape.
+
 ```python
 class Linear(minitorch.Module):
     def __init__(self, in_size, out_size):
@@ -117,6 +140,9 @@ class Linear(minitorch.Module):
 ### 2. Implement Network class
 
 Implement the complete neural network used for training. You need to implement both the initialization function and the forward function of the Network class. Read the comments carefully before coding.
+
+**HINT**:
+- You can use `minitorch.nn.dropout` for dropout, and `minitorch.tensor.relu` for ReLU.
 
 ```python
 class Network(minitorch.Module):

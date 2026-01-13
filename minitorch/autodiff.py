@@ -99,6 +99,11 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
 
     Returns:
         Non-constant Variables in topological order starting from the right.
+    
+    Hints:
+        1. Ensure that you visit the computation graph in a post-order depth-first search.
+        2. When the children nodes of the current node are visited, add the current node 
+            at the front of the result order list.
     """
     # BEGIN ASSIGN2_1
     # TODO
@@ -117,6 +122,11 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
         deriv  : Its derivative that we want to propagate backward to the leaves.
 
     No return. Should write to its results to the derivative values of each leaf through `accumulate_derivative`.
+
+    Hints:
+        1. Traverse nodes in topological order
+        2. If the node is a leaf, the derivative should be accumulated
+        3. Otherwise, the derivative should be propagated via chain rule
     """
     # BEGIN ASSIGN2_1
     # TODO

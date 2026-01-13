@@ -101,7 +101,8 @@ class Network(minitorch.Module):
                 
         # BEGIN ASSIGN2_2
         # TODO
-        # 1. Construct two linear layers: the first one is embedding_dim * hidden_dim, the second one is hidden_dim * 1
+        # 1. Construct two linear layers: the first one is embedding_dim * hidden_dim
+        #       the second one is hidden_dim * 1
 
         raise NotImplementedError("Network not implemented")
         
@@ -121,7 +122,7 @@ class Network(minitorch.Module):
         # 3. Apply ReLU and dropout (with dropout probability=self.dropout_prob)
         # 4. Apply the second linear layer
         # 5. Apply sigmoid and reshape to (batch)
-        # HINT: You can use minitorch.dropout for dropout, and minitorch.tensor.relu for ReLU
+        # HINT: You can use minitorch.nn.dropout for dropout, and minitorch.tensor.relu for ReLU
         
         raise NotImplementedError("Network forward not implemented")
     
