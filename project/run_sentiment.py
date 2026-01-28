@@ -320,7 +320,7 @@ if __name__ == "__main__":
     embedding_dim = 50
 
     (X_train, y_train), (X_val, y_val) = encode_sentiment_data(
-        load_dataset("glue", "sst2"),
+        load_dataset("nyu-mll/glue", "sst2"),
         embeddings.GloveEmbedding("wikipedia_gigaword", d_emb=embedding_dim, show_progress=True),
         train_size,
         validation_size,
