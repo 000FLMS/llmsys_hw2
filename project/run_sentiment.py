@@ -211,7 +211,7 @@ class SentenceSentimentTrain:
                 
                 # BEGIN ASSIGN2_3
                 # TODO
-                # 1. Create x and y using minitorch.tensor function through the SimpleOps backend (cpu backend)
+                # 1. Create x and y using minitorch.tensor function
                 # 2. Get the model output (as out)
                 # 3. Calculate the loss using binary_cross_entropy_loss function
                 # 4. Call backward function of the loss
@@ -235,7 +235,7 @@ class SentenceSentimentTrain:
                 
                 # BEGIN ASSIGN2_3
                 # TODO
-                # 1. Create x and y using minitorch.tensor function through our CudaKernelOps backend
+                # 1. Create x and y using minitorch.tensor function
                 # 2. Get the output of the model
                 # 3. Obtain validation predictions using the get_predictions_array function, and add to the validation_predictions list
                 # 4. Obtain the validation accuracy using the get_accuracy function, and add to the validation_accuracy list
