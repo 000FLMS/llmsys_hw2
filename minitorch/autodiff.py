@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Iterable, List, Tuple
+from typing import Any, Iterable, List, Set, Tuple
 
 from typing_extensions import Protocol
 
@@ -106,9 +106,28 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
             at the front of the result order list.
     """
     # BEGIN ASSIGN2_1
-    # TODO
-    
-    raise NotImplementedError("Task Autodiff Not Implemented Yet")
+    topo_sorted: List[Variable] = []
+    def dfs(node: Variable, order: List[Variable], visited: Set[int]):
+        if node.unique_id in visited:
+            return
+        if node.is_leaf():
+            visited.add(node.unique_id)
+            order.append(node)
+            return 
+        elif node.is_constant(): # Ignore topo for constant
+            visited.add(node.unique_id)
+            return
+        else:
+            child_nodes = node.parents
+            for child in child_nodes:
+                dfs(child, order, visited)
+        visited.add(node.unique_id)        
+        order.append(node)
+        return 
+
+    dfs(variable, topo_sorted, set([]))
+
+    return reversed(topo_sorted)
     # END ASSIGN2_1
 
 
@@ -129,9 +148,22 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
         3. Otherwise, the derivative should be propagated via chain rule
     """
     # BEGIN ASSIGN2_1
-    # TODO
-   
-    raise NotImplementedError("Task Autodiff Not Implemented Yet")
+    topo_order = topological_sort(variable)
+    deriv_dict = {}
+    deriv_dict[variable.unique_id] = deriv
+    for node in topo_order:
+        cur_id = node.unique_id
+        if node.is_leaf():
+            node.accumulate_derivative(deriv_dict[cur_id])
+        else:
+            parent_list = node.chain_rule(deriv_dict[cur_id])
+            for pnode, d in parent_list:
+                idx = pnode.unique_id
+                if idx in deriv_dict:
+                    deriv_dict[idx] += d
+                else:
+                    deriv_dict[idx] = d
+    
     # END ASSIGN2_1
 
 
