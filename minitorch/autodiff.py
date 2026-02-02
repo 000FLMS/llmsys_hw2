@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Any, Iterable, List, Set, Tuple
-
+from collections import deque
 from typing_extensions import Protocol
 
 
@@ -106,26 +106,26 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
             at the front of the result order list.
     """
     # BEGIN ASSIGN2_1
-    topo_sorted: List[Variable] = []
-    def dfs(node: Variable, order: List[Variable], visited: Set[int]):
-        if node.unique_id in visited:
-            return
-        if node.is_leaf():
-            visited.add(node.unique_id)
-            order.append(node)
-            return 
-        elif node.is_constant(): # Ignore topo for constant
-            visited.add(node.unique_id)
-            return
-        else:
-            child_nodes = node.parents
-            for child in child_nodes:
-                dfs(child, order, visited)
-        visited.add(node.unique_id)        
-        order.append(node)
-        return 
 
-    dfs(variable, topo_sorted, set([]))
+    if variable.is_constant():
+        return []
+    
+    topo_sorted: List[Variable] = []
+    visited:Set[Variable] = set()
+    stack: List[Tuple[Variable, bool]] = [(variable, False)]
+
+    while stack:
+        top_node, flag = stack[-1]
+        if flag or top_node.is_leaf():
+            node, _ = stack.pop()
+            if node.unique_id not in visited:
+                visited.add(node.unique_id)
+                topo_sorted.append(node)
+        else:
+            stack[-1] = (top_node, True)
+            for cnode in top_node.parents[::-1]:
+                if cnode.unique_id not in visited and not cnode.is_constant():
+                    stack.append((cnode, False))
 
     return reversed(topo_sorted)
     # END ASSIGN2_1
